@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<link rel="icon" href="images/favicon.ico" />
+
+<title>Anigna KB</title>
+
+<!-- Bootstrap core CSS -->
+<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+<link href="assets/css/open-iconic-bootstrap.min.css" rel="stylesheet" />
+<link href="assets/css/validation.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="assets/css/sweetalert.css" />
+</head>
+
+<body>	
+	<!-- Begin page content -->
+	<div class="page container col-md-8 mt-4" id="page-wrapper">
+		<div class="card border-secondary" th:fragment="section">
+			<div class="card-header" style="background-color: #d9d9d9;">
+				<div class="form-group form-control-sm row" style="margin-bottom: -5px;">
+					<h6 th:text="${info}" class="col-sm-5"
+						style="color: red;"></h6>
+					<h6 class="col-sm-4 col-form-label">Employee Information</h6>
+					<div class="col-sm-3">
+						<button type="button" class="btn btn-dark btn-block"
+							onclick="addEmployee()">Add New Employee</button>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="form-group form-control-sm row"
+					th:if="${flag == 'No Record Found'}">
+					<label class="col-sm-4 col-form-label"><span
+						style="font-size: 18px; color: red; font-weight: bold;">No
+							Records Found</span></label>
+					<div class="col-sm-8">
+						<button type="button" class="btn btn-dark btn-block"
+							onclick="addEmployee()">Add New Employee</button>
+					</div>
+				</div>
+				<form autocomplete="off" th:if="${flag != 'No Record Found'}"
+					action="">
+					<div class="form-group form-control-sm row">
+						<table id="myTable"
+							class="table table-striped table-hover dt-responsive">
+							<thead>
+								<tr>
+									<th>EmpID</th>
+									<th>Name</th>
+									<th>Experience</th>
+									<th>Designation</th>
+									<th>Delete</th>
+									<th>Edit</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="emp: ${empALL}">
+									<th style="text-align: left; font-size: 12px;"
+										th:text="${emp.employeeId}"></th>
+									<th style="text-align: left; font-size: 12px;"
+										th:text="${emp.employeeName}" id="email"></th>
+									<th style="text-align: left; font-size: 12px;"
+										th:text="${emp.employeeExperience}"></th>
+									<th style="text-align: left; font-size: 12px;"
+										th:text="${emp.employeeDesignation}"></th>
+									<th style="text-align: center; font-size: 14px;"><a
+										th:href="'javascript:deleteEmployee(\''+${emp.employeeId}+ '\');'"><span
+											class="oi oi-delete"></span></a></th>
+									<th style="text-align: center; font-size: 14px;"><a
+										th:href="'javascript:editEmployee(\''+${emp.employeeId}+ '\');'"><span
+											class="oi oi-eyedropper"></span></a></th>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="assets/js/jquery-3.2.1.min.js"></script>
+	<script src="assets/js/popper.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<!-- Custom Scripts for V-TOP Pages-->
+	<script src="assets/js/vit-custom.js"></script>
+	<script type="text/javascript" src="assets/js/sweetalert.js"></script>
+	<script th:inline="javascript" type="text/javascript">
+		/*<![CDATA[*/
+		function addEmployee() {
+			$.ajax({
+				url : "addEmployee",
+				type : "POST",
+				cache : false,
+				processData : false,
+				contentType : false,
+				success : function(response) {
+					$("html").html(response);
+
+				}
+			});
+		}
+		
+		function editEmployee(employeeId) {
+			$.ajax({
+				url : "editEmployee?employeeId=" + employeeId,
+				type : "POST",
+				cache : false,
+				processData : false,
+				contentType : false,
+				success : function(response) {
+					$("html").html(response);
+
+				}
+			});
+		}
+		
+		
+		function deleteEmployee(employeeId) {
+			swal({
+				title : "Are you sure?",
+				text : "Your will not be able to recover this data again!",
+				type : "warning",
+				showCancelButton : true,
+				confirmButtonClass : "btn-danger",
+				confirmButtonText : "Yes, delete it!",
+				closeOnConfirm : false
+			}, function() {
+				$.ajax({
+					url : "deleteEmployee?employeeId=" + employeeId,
+					type : "POST",
+					cache : false,
+					processData : false,
+					contentType : false,
+					success : function(response) {							
+						$("#page-wrapper").html(response);		
+						swal("Deleted!", "Employee data has been deleted.","success");
+					}
+				});
+
+			});
+		}
+		/*]]>*/
+	</script>
+	<noscript>
+		<h2 class="text-red">Enable JavaScript to Access Page</h2>
+	</noscript>
+</body>
+</html>

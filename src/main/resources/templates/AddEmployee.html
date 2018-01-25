@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<link rel="icon" href="images/favicon.ico" />
+
+<title>Anigna KB</title>
+
+<!-- Bootstrap core CSS -->
+<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+<link href="assets/css/open-iconic-bootstrap.min.css" rel="stylesheet" />
+<link href="assets/css/validation.css" rel="stylesheet" />
+</head>
+
+<body>
+	<!-- Begin page content -->
+	<div class="page container col-md-5 mt-4">
+		<div class="card border-secondary">
+			<div class="card-header text-center"
+				style="background-color: #d9d9d9;">Add New Employee</div>
+
+			<div class="card-body">
+				<form  action="processAddEmployee" method="post">
+					<div class="form-group row pb-3 pt-2">
+						<label for="inputEmployeeId" class="col-sm-4 col-form-label">Employee
+							ID</label>
+						<div class="col-sm-8">
+							<input type="number" class="form-control"
+								title="Please Enter Valid ID" placeholder="Employee ID"
+								id="inputEmployeeId" required="required" min="10000" max="50000"
+								th:value="${emp.employeeId!=null}?${emp.employeeId}"
+								name="employeeId" />
+						</div>
+					</div>
+					<div class="form-group row pb-3">
+						<label for="inputEmployeeName" class="col-sm-4 col-form-label">Employee
+							Name</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control"
+								title="Name minimum length should be 3 Character"
+								placeholder="Employee Name" required="required"
+								id="inputEmployeeName" pattern="[a-zA-Z\.\s]{3,50}"
+								th:value="${emp.employeeName!=null}?${emp.employeeName}"
+								name="employeeName" />
+						</div>
+					</div>
+					<div class="form-group row pb-3">
+						<label for="inputEmployeeExperience"
+							class="col-sm-4 col-form-label">Employee Experience</label>
+						<div class="col-sm-8">
+							<input type="number" class="form-control"
+								title="Please Enter Valid Experience"
+								placeholder="Employee Experience" id="inputEmployeeExperience"
+								th:value="${emp.employeeExperience!=null}?${emp.employeeExperience}"
+								required="required" min="1" max="30" name="employeeExperience" />
+						</div>
+					</div>
+					<div class="form-group row pb-3">
+						<label for="inputEmployeeDesignation"
+							class="col-sm-4 col-form-label">Employee Designation</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control"
+								title="Name minimum length should be 5 Character"
+								placeholder="Employee Designation" required="required"
+								id="inputEmployeeDesignation" pattern="[a-zA-Z\s]{5,50}"
+								th:value="${emp.employeeDesignation!=null}?${emp.employeeDesignation}"
+								name="employeeDesignation" />
+						</div>
+					</div>
+					<div class="form-group row ">
+						<div class="col-sm-8 mx-auto">
+							<button type="submit" class="btn btn-dark btn-block">Add Employee</button>
+						</div>
+						<a href="/" class=" col-sm-4 btn btn-dark btn-block">Go Back</a>
+					</div>					
+				</form>
+			</div>			
+		</div>
+	</div>
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="assets/js/jquery-3.2.1.min.js"></script>
+	<script src="assets/js/popper.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<!-- Custom Scripts for V-TOP Pages-->
+	<script src="assets/js/vit-custom.js"></script>
+
+	<noscript>
+		<h2 class="text-red">Enable JavaScript to Access Page</h2>
+	</noscript>
+</body>
+</html>
