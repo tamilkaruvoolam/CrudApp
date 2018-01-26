@@ -1,7 +1,7 @@
 # CrudApp
 Spring Boot CRUD Web Application
 
-Schema is available is static/assets/sql folder
+Schema is available in static/assets/sql folder
 
 Spring Boot CRUD Web Application
 	1. User Interface (HTML5+Bootstrap+JQuery)
